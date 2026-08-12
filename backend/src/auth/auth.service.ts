@@ -47,14 +47,16 @@ export class AuthService {
       await this.gatewayAccountService.createPendingAccount(user.id, {
         personType: dto.personType,
         name: dto.name,
-        tradingName: dto.tradingName,
+        // O gateway valida tradingName/complement quando presentes (ex: tamanho mínimo) e
+        // não trata string vazia como ausente — omitimos o campo em vez de mandar "".
+        tradingName: dto.tradingName || undefined,
         email: dto.email,
         phone: dto.phone,
         document: dto.document,
         zipCode: dto.zipCode,
         address: dto.address,
         number: dto.number,
-        complement: dto.complement,
+        complement: dto.complement || undefined,
         neighborhood: dto.neighborhood,
         city: dto.city,
         state: dto.state,
