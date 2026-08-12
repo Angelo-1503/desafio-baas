@@ -1,0 +1,61 @@
+services:
+  - type: web
+    name: baas-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+
+      # Banco MySQL gerenciado externo (Aiven) — preencha com os dados da sua
+      # instância após criá-la em https://console.aiven.io
+      - key: DATABASE_HOST
+        sync: false
+      - key: DATABASE_PORT
+        sync: false
+      - key: DATABASE_USER
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: DATABASE_NAME
+        sync: false
+      - key: DATABASE_SSL
+        value: 'true'
+
+      # Segredos gerados automaticamente pelo Render na criação do Blueprint
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CREDENTIALS_ENCRYPTION_KEY
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 1d
+
+      - key: GATEWAY_BASE_URL
+        value: https://api.branchpay.com.br/api
+
+      # PUBLIC_BASE_URL: a URL pública deste serviço, atribuída pelo Render
+      # (algo como https://baas-backend.onrender.com). Preencha depois do
+      # primeiro deploy, quando a URL final estiver visível no dashboard.
+      - key: PUBLIC_BASE_URL
+        sync: false
+
+      # FRONTEND_URL: a URL do projeto no Vercel (ex: https://seu-app.vercel.app)
+      - key: FRONTEND_URL
+        sync: false
+
+      # SMTP (diferencial de envio de link por e-mail) — opcional
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false

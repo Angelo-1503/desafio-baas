@@ -1,0 +1,21 @@
+# compiled output
+dist
+node_modules
+
+# logs
+logs
+*.log
+npm-debug.log*
+
+# env
+.env
+.env.production
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# coverage
+coverage
+*.tsbuildinfo
