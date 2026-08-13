@@ -4,6 +4,19 @@ Aplicação Banking as a Service (BaaS) desenvolvida para o desafio técnico da 
 usado pelo lojista (checkout, carteira, extrato, saques) e integra-se via HTTP ao gateway de
 pagamento simulado **Lera Box** (`https://api.branchpay.com.br/api`) como processador.
 
+## URLs em produção
+
+| Serviço            | URL                                                   |
+| ------------------- | ------------------------------------------------------ |
+| Frontend (Vercel)   | https://desafio-baas.vercel.app                        |
+| Backend (Render)    | https://desafio-baas.onrender.com                       |
+| Swagger da BaaS     | https://desafio-baas.onrender.com/docs                  |
+| Repositório         | https://github.com/Angelo-1503/desafio-baas             |
+| Banco de dados      | MySQL gerenciado na Aiven (sem acesso público)          |
+
+> O backend está no plano free do Render, que hiberna após inatividade — a primeira requisição
+> depois de um tempo parado pode demorar ~30s a mais enquanto o serviço acorda.
+
 ## Arquitetura
 
 ```
@@ -123,17 +136,15 @@ docker compose up -d --build
 
 ## Credenciais de demonstração
 
-Conta de lojista já cadastrada e com a conta do gateway **ativada** (login feito, webhooks
-registrados), pronta para uso em `http://localhost:5173` (ou na URL pública, quando implantada):
+Já existe uma conta de lojista cadastrada em produção com a conta do gateway **ativada** (login
+feito, webhooks registrados). A senha não está neste README público — será enviada por um canal
+privado a quem for avaliar o desafio, a pedido.
 
-| Campo   | Valor                        |
-| ------- | ----------------------------- |
-| E-mail  | `angelogiroletto@gmail.com`   |
-| Senha   | `TesteBaas1234!`              |
-
-Essa é a senha de acesso **à BaaS** (escolhida no cadastro) — não a senha do gateway Lera Box, que
-chegou por e-mail durante a ativação e nunca é exposta pela aplicação nem armazenada em texto
-plano.
+Alternativamente, é possível criar uma conta nova em segundos pela própria interface
+(https://desafio-baas.vercel.app/register), usando um e-mail e telefone reais — o CPF/CNPJ pode ser
+fictício. A senha aí é escolhida livremente por quem cadastra; nunca é a senha do gateway Lera Box
+(essa chega por e-mail durante a ativação e nunca é exposta pela aplicação nem armazenada em texto
+plano).
 
 ## Documentação da API
 
@@ -166,7 +177,8 @@ plano.
 
 ## Deploy: Render (backend) + Vercel (frontend) + Aiven (MySQL)
 
-Alternativa sem VPS, usando serviços gerenciados com tier gratuito. Render não oferece MySQL
+**É assim que a aplicação está rodando agora** (URLs na seção "URLs em produção", no topo). Passo a
+passo para reproduzir, usando serviços gerenciados com tier gratuito. Render não oferece MySQL
 gerenciado no plano free (só Postgres, e discos persistentes exigem plano pago) — por isso o banco
 fica na Aiven, que tem MySQL sempre grátis.
 
