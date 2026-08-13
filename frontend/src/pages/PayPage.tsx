@@ -8,6 +8,12 @@ import { centavosToBRL } from '../utils/money';
 
 type Method = 'PIX' | 'CARD';
 
+/** O gateway já retorna qrCodeBase64 como data URI completa em alguns casos, e só o base64
+ * cru em outros — normaliza pra sempre virar uma data URI válida. */
+function toDataUri(qrCodeBase64: string): string {
+  return qrCodeBase64.startsWith('data:') ? qrCodeBase64 : `data:image/png;base64,${qrCodeBase64}`;
+}
+
 export function PayPage() {
   const { linkId } = useParams<{ linkId: string }>();
   const [link, setLink] = useState<CheckoutLink | null>(null);
@@ -135,7 +141,7 @@ function PixPayment({ linkId, onError }: { linkId: string; onError: (msg: string
       <div className="stack">
         {order.qrCodeBase64 && (
           <img
-            src={`data:image/png;base64,${order.qrCodeBase64}`}
+            src={toDataUri(order.qrCodeBase64)}
             alt="QR Code Pix"
             style={{ width: '100%', maxWidth: 260, alignSelf: 'center' }}
           />
