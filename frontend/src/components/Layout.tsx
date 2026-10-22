@@ -7,7 +7,7 @@ export function Layout() {
   return (
     <>
       <nav className="app-nav">
-        <span className="brand">VBA Systems BaaS</span>
+        <span className="brand">BaaS Pagamentos</span>
         <NavLink to="/dashboard">Carteira</NavLink>
         <NavLink to="/checkout-links">Links de pagamento</NavLink>
         <NavLink to="/withdrawals">Saques</NavLink>

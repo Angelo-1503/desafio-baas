@@ -48,7 +48,7 @@ export class ReceiptsService {
 
       doc.fontSize(18).text('Comprovante de pagamento', { align: 'center' });
       doc.moveDown();
-      doc.fontSize(10).fillColor('#555').text('VBA Systems BaaS · Gateway Lera Box', {
+      doc.fontSize(10).fillColor('#555').text('BaaS Pagamentos · Gateway Lera Box', {
         align: 'center',
       });
       doc.moveDown(2);

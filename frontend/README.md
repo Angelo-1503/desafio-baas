@@ -1,4 +1,4 @@
-# Frontend — VBA Systems BaaS
+# Frontend — BaaS Pagamentos
 
 SPA React + Vite. Ver o [README principal](../README.md) do repositório para arquitetura, setup e
 fluxos completos.

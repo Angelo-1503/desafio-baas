@@ -38,7 +38,7 @@ export function ReceiptPage() {
     <div className="page" style={{ maxWidth: 420 }}>
       <div className="card stack">
         <h1 style={{ margin: 0 }}>Comprovante de pagamento</h1>
-        <p className="muted">VBA Systems BaaS · Gateway Lera Box</p>
+        <p className="muted">BaaS Pagamentos · Gateway Lera Box</p>
 
         <dl className="stack" style={{ gap: '0.4rem' }}>
           <Row label="Status" value={order.status} />

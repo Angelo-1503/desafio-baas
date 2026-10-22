@@ -1,4 +1,4 @@
-# Backend — VBA Systems BaaS
+# Backend — BaaS Pagamentos
 
 API NestJS. Ver o [README principal](../README.md) do repositório para arquitetura, setup,
 variáveis de ambiente e fluxos completos.

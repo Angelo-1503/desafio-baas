@@ -51,6 +51,6 @@ export class CheckoutController {
     @Param('id') id: string,
     @Body() dto: SendCheckoutLinkEmailDto,
   ) {
-    return this.checkoutService.sendByEmail(user.id, id, dto);
+    return this.checkoutService.sendByEmail(user, id, dto);
   }
 }

@@ -1,6 +1,6 @@
-# VBA Systems BaaS — Integração com Gateway Lera Box
+# BaaS Pagamentos — Integração com Gateway Lera Box
 
-Aplicação Banking as a Service (BaaS) desenvolvida para o desafio técnico da VBA Systems. O produto é
+Aplicação Banking as a Service (BaaS) desenvolvida como desafio técnico de um processo seletivo. O produto é
 usado pelo lojista (checkout, carteira, extrato, saques) e integra-se via HTTP ao gateway de
 pagamento simulado **Lera Box** (`https://api.branchpay.com.br/api`) como processador.
 
@@ -101,12 +101,14 @@ docker compose up -d --build
 | `PUBLIC_BASE_URL`             | ✅          | URL pública desta API — usada ao registrar os webhooks no gateway. **Em dev local, o gateway não alcança `localhost`; use um túnel (ex: `ngrok http 3000`) e aponte esta variável para a URL pública gerada.** |
 | `FRONTEND_URL`                |             | Usada para CORS e para montar o link enviado por e-mail                     |
 | `SMTP_HOST/PORT/USER/PASSWORD/FROM` |       | Envio de link de pagamento por e-mail (diferencial). Sem `SMTP_HOST`, o envio é apenas logado e ignorado — nada quebra. |
+| `DEMO_ACCOUNT_EMAIL`          |             | E-mail da conta pública de demonstração; o envio de link por e-mail fica bloqueado para ela |
 
 ## Variáveis de ambiente — frontend (`frontend/.env`)
 
 | Variável        | Descrição                          |
 | ---------------- | ----------------------------------- |
 | `VITE_API_URL`   | URL base da API da BaaS             |
+| `VITE_DEMO_EMAIL` / `VITE_DEMO_PASSWORD` | Conta demo exibida no login (opcional) |
 
 ## Fluxo de uso
 
@@ -136,9 +138,13 @@ docker compose up -d --build
 
 ## Credenciais de demonstração
 
-Já existe uma conta de lojista cadastrada em produção com a conta do gateway **ativada** (login
-feito, webhooks registrados). A senha não está neste README público — será enviada por um canal
-privado a quem for avaliar o desafio, a pedido.
+Na tela de login há o botão **Entrar como demo**, que entra numa conta pública de lojista:
+
+- E-mail: `angelogdemo@gmail.com`
+- Senha: `demo123123`
+
+Nessa conta o envio de link por e-mail fica desativado (`DEMO_ACCOUNT_EMAIL`), já que qualquer
+pessoa pode entrar nela.
 
 Alternativamente, é possível criar uma conta nova em segundos pela própria interface
 (https://desafio-baas.vercel.app/register), usando um e-mail e telefone reais — o CPF/CNPJ pode ser

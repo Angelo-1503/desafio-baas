@@ -246,7 +246,7 @@
   },
   "info": {
     "title": "Lera Box",
-    "description": "Ambiente de simulação para testes VBA Systems. Este ambiente monitorado para integração, simulando um Gateway de pagamento, tem como mostrar ao profissional um pouco da estrutura que trabalhamos dentro da nossa empresa.\n\n**Acesso:** `POST /api/users` é público. Após o cadastro, o profissional recebe senha, CodigoCliente e ChaveLoja por e-mail e usa `POST /api/auth/login` (CPF/CNPJ + senha) para obter o Bearer token das demais rotas.",
+    "description": "Ambiente de simulação para testes. Este ambiente monitorado para integração, simulando um Gateway de pagamento, tem como mostrar ao profissional um pouco da estrutura que trabalhamos dentro da nossa empresa.\n\n**Acesso:** `POST /api/users` é público. Após o cadastro, o profissional recebe senha, CodigoCliente e ChaveLoja por e-mail e usa `POST /api/auth/login` (CPF/CNPJ + senha) para obter o Bearer token das demais rotas.",
     "version": "1.0",
     "contact": {}
   },

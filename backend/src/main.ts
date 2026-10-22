@@ -26,7 +26,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggingInterceptor());
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('VBA Systems BaaS')
+    .setTitle('BaaS Pagamentos')
     .setDescription(
       'API da aplicação Banking as a Service integrada ao gateway de pagamento Lera Box.',
     )

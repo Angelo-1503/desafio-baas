@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ApiError } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 
+const DEMO_EMAIL = import.meta.env.VITE_DEMO_EMAIL as string | undefined;
+const DEMO_PASSWORD = import.meta.env.VITE_DEMO_PASSWORD as string | undefined;
+
 export function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -11,18 +14,22 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function signIn(userEmail: string, userPassword: string) {
     setError(null);
     setLoading(true);
     try {
-      await login(email, password);
+      await login(userEmail, userPassword);
       navigate('/dashboard');
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'Falha ao entrar');
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    signIn(email, password);
   }
 
   return (
@@ -46,6 +53,20 @@ export function LoginPage() {
         <button type="submit" disabled={loading}>
           {loading ? 'Entrando...' : 'Entrar'}
         </button>
+        {DEMO_EMAIL && DEMO_PASSWORD && (
+          <div className="stack" style={{ gap: '0.3rem' }}>
+            <button
+              type="button"
+              disabled={loading}
+              onClick={() => signIn(DEMO_EMAIL, DEMO_PASSWORD)}
+            >
+              Entrar como demo
+            </button>
+            <p className="muted">
+              Conta de demonstração: {DEMO_EMAIL} / {DEMO_PASSWORD}
+            </p>
+          </div>
+        )}
         <p className="muted">
           Ainda não tem conta? <Link to="/register">Cadastre-se</Link>
         </p>

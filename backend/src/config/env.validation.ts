@@ -70,6 +70,11 @@ class EnvironmentVariables {
   @IsString()
   @IsOptional()
   SMTP_FROM?: string;
+
+  /** Conta pública de demonstração: o envio de e-mail fica desativado para ela. */
+  @IsString()
+  @IsOptional()
+  DEMO_ACCOUNT_EMAIL?: string;
 }
 
 export function validateEnv(config: Record<string, unknown>) {

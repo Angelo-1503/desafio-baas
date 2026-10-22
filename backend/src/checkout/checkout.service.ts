@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -215,8 +216,18 @@ export class CheckoutService {
     return order;
   }
 
-  async sendByEmail(userId: string, linkId: string, dto: SendCheckoutLinkEmailDto) {
-    const link = await this.findForOwner(userId, linkId);
+  async sendByEmail(
+    user: { id: string; email: string },
+    linkId: string,
+    dto: SendCheckoutLinkEmailDto,
+  ) {
+    // A conta demo é pública: sem isso, qualquer visitante usaria o SMTP para mandar e-mails.
+    const demoEmail = this.configService.get<string>('DEMO_ACCOUNT_EMAIL');
+    if (demoEmail && user.email.toLowerCase() === demoEmail.toLowerCase()) {
+      throw new ForbiddenException('Envio por e-mail desativado na conta de demonstração');
+    }
+
+    const link = await this.findForOwner(user.id, linkId);
     const frontendUrl = this.configService.get<string>('FRONTEND_URL', 'http://localhost:5173');
 
     return this.mailService.sendCheckoutLink(dto.email, {
