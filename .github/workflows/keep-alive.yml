@@ -1,0 +1,21 @@
+name: Keep alive
+
+# O plano free do Render hiberna o backend após ~15 min sem tráfego e o MySQL free da Aiven
+# desliga quando fica parado. Este ping chama o /health (que faz SELECT 1 no banco) a cada
+# 10 minutos para manter os dois acordados.
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping /health
+        run: |
+          # O primeiro acesso depois de hibernar pode levar ~50s, por isso o timeout longo e os retries.
+          curl --fail --silent --show-error \
+            --max-time 90 --retry 3 --retry-delay 15 --retry-all-errors \
+            https://desafio-baas.onrender.com/health
